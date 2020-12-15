@@ -4,15 +4,32 @@ index.html
 index.js
 style.css
 
-Собирается вебпак в корневую папку!
+Собирается вебпак-проект в корневую папку!
 
 __________________________________________________
 
-Настройка Web-pack!
+Для установки всех пакетов, необходимо забрать проект с гита и написать в GitBash корневой папки:
+
+npm install
+__________________________________________________
+
+После установки всего
+режим разработки для js файла
+
+npm run dev
+
+режим продакшн(минифицированные файлы) для js файла
+
+npm run build
+
+следить за изменениями всего проекта, автоматическая сборка после сейва изменений(рекомендуемое)
+
+npm run watch
+
+__________________________________________________
+Настройка Web-pack и Eslint самостоятельно, если сложности с установкой!
 
 npm init
-
-npm install webpack --save-dev
 
 npm install -D webpack --save-dev webpack-cli
 
@@ -27,17 +44,6 @@ npm install style-loader css-loader sass-loader node-sass extract-text-webpack-p
 установка babel
 npm install -D babel-loader @babel/core @babel/preset-env webpack
 
-
-После установки всего
-режим разработки для js файла
-
-npm run dev
-
-режим продакшн(минифицированные файлы) для js файла
-
-npm run build
-
-следить за изменениями всего проекта, автоматическая сборка после сейва изменений
-
-npm run watch
+установка eslint-config-airbnb-base
+npx install-peerdeps --dev eslint-config-airbnb
 
