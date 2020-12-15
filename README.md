@@ -20,16 +20,16 @@ npm install style-loader css-loader sass-loader node-sass extract-text-webpack-p
 npm install -D babel-loader @babel/core @babel/preset-env webpack
 
 
-
-режим разработки
+После установки всего
+режим разработки для js файла
 
 npm run dev
 
-режим продакшн(минифицированные файлы)
+режим продакшн(минифицированные файлы) для js файла
 
 npm run build
 
-следить за изменениями 
+следить за изменениями всего проекта, автоматическая сборка после сейва изменений
 
 npm run watch
 
