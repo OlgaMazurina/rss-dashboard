@@ -31,7 +31,7 @@ __________________________________________________
 
 npm init
 
-npm install -D webpack --save-dev webpack-cli
+npm install -D webpack webpack-cli
 
 npm install -D clean-webpack-plugin
 
