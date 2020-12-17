@@ -580,3 +580,12 @@ body {
     display: none;
   }
 }
+
+#chart {
+  flex: auto;
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100% !important;
+  height: 80% !important;
+}
