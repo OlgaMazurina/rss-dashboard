@@ -510,6 +510,16 @@ body {
   font-size: 20px;
 }
 
+.footer_list-title {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.footer_list {
+  margin-top: 10px;
+  padding: 0;
+}
+
 .footer_github a {
   color: #b9b9b9;
 }
