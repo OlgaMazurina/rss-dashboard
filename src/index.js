@@ -1,4 +1,12 @@
+
+import App from './components/App.js';
 import './styles.css';
+import { createChart } from './chart.js';
+
+window.onload = () => {
+    document.body.append(new App().init());
+    createChart();
+}
 
 // Список стран
 // async function getCountries() {
@@ -36,4 +44,5 @@ async function getData() {
 //     }
 //     return {confirmed: 0, deaths: 0, recovered: 0};
 // }
+
 
