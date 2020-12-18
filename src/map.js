@@ -17,8 +17,9 @@ export async function createMap() {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.5,
-            radius: 500
+            radius: country['cases'] / 25
         }).addTo(mymap);
+        circle.bindPopup(`<b>${country['country']}</b><br>Cases: ${country['cases']}<br>Deaths: ${country['deaths']}`);
     }
 
 }
