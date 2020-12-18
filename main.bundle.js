@@ -10,6 +10,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/APIdata.js":
+/*!************************!*\
+  !*** ./src/APIdata.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getCountriesCoordinates\": () => /* binding */ getCountriesCoordinates\n/* harmony export */ });\n// Список стран\n// async function getCountries() {\n//     const response = await fetch('https://api.covid19api.com/countries')\n//     return await response.json();\n// }\n// Получение массива с данными по каждой стране\nasync function getAllCountries() {\n  const response = await fetch('https://api.covid19api.com/summary');\n  obj = await response.json();\n  return obj['Countries'];\n} // Данные по По каждой стране за все время\n\n\nasync function getData() {\n  const countries = await getAllCountries();\n  let countriesMap = new Map();\n\n  for (let i of countries) {\n    let data = {\n      totalConfirmed: i['TotalConfirmed'],\n      totalDeaths: i['TotalDeaths'],\n      totalRecovered: i['TotalRecovered']\n    };\n    countriesMap.set(i['Country'], data);\n  }\n} //Получение всей информации по странам(координаты, флаг, название, население, случаи...)\n\n\nasync function getCountriesCoordinates() {\n  const response = await fetch('https://corona.lmao.ninja/v2/countries');\n  return await response.json();\n} // getData();\n// По стране за каждый день (для получения графика)\n// async function getDataByCountry(country) {\n//     const response = await fetch(`https://api.covid19api.com/total/dayone/country/${country}`)\n//     const arr = await response.json();\n//     if (arr.length !== 0) {\n//         const lastDay = arr[arr.length - 1];\n//         return {confirmed: lastDay['Confirmed'], deaths: lastDay['Deaths'], recovered: lastDay['Recovered']};\n//     }\n//     return {confirmed: 0, deaths: 0, recovered: 0};\n// }\n\n//# sourceURL=webpack://rss-dashboard/./src/APIdata.js?");
+
+/***/ }),
+
 /***/ "./src/chart.js":
 /*!**********************!*\
   !*** ./src/chart.js ***!
@@ -106,7 +116,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"createMap\": () => /* binding */ createMap\n/* harmony export */ });\nfunction createMap() {\n  const mymap = L.map('mapid').setView([35, 0], 2);\n  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {\n    attribution: 'Map data &copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>',\n    maxZoom: 15,\n    id: 'mapbox/streets-v11',\n    tileSize: 512,\n    zoomOffset: -1,\n    accessToken: 'pk.eyJ1IjoiMGxnYSIsImEiOiJja2l1OW16dTEydnNxMnJsYmxmN29kZHQ0In0.8aKToKJUpLWf0fzGd3NAIg'\n  }).addTo(mymap);\n}\n\n//# sourceURL=webpack://rss-dashboard/./src/map.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"createMap\": () => /* binding */ createMap\n/* harmony export */ });\n/* harmony import */ var _APIdata_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./APIdata.js */ \"./src/APIdata.js\");\n\nasync function createMap() {\n  const mymap = L.map('mapid').setView([35, 0], 2);\n  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {\n    attribution: 'Map data &copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>',\n    maxZoom: 15,\n    id: 'mapbox/streets-v11',\n    tileSize: 512,\n    zoomOffset: -1,\n    accessToken: 'pk.eyJ1IjoiMGxnYSIsImEiOiJja2l1OW16dTEydnNxMnJsYmxmN29kZHQ0In0.8aKToKJUpLWf0fzGd3NAIg'\n  }).addTo(mymap);\n\n  for (let country of await (0,_APIdata_js__WEBPACK_IMPORTED_MODULE_0__.getCountriesCoordinates)()) {\n    let circle = L.circle([country['countryInfo']['lat'], country['countryInfo']['long']], {\n      color: 'red',\n      fillColor: '#f03',\n      fillOpacity: 0.5,\n      radius: 500\n    }).addTo(mymap);\n  }\n}\n\n//# sourceURL=webpack://rss-dashboard/./src/map.js?");
 
 /***/ }),
 
