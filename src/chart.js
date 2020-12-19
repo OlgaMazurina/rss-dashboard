@@ -2,17 +2,33 @@ export function createChart() {
     const ctx = document.querySelector('#chart').getContext('2d');
 
     const chartConfig = {
-        type: 'line',
+        type: 'bar',
         data: {
-            labels: ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5", "Task 6", "Task 7", "Task 8", "Task 9", "Task 10"],
-            datasets: [],
+            labels: [],
+            datasets: [
+                {
+                    data: [],
+                    backgroundColor: "#ffff00",
+                    borderColor: "#ffff00",
+                    // borderWidth: 0.1,
+                    barDatasetSpacing: 0,
+                    barValueSpacing: 0,
+                    // categoryPercentage: 0,
+                    // barPercentage: 0,
+                    // barThickness: 'flex',
+                    fill: false
+                }
+            ],
         },
         options: {
-            // title: {
-            //     display: true,
-            //     text: 'Comparison of results',
-            // },
+            legend: {
+                display: false
+              },
             scales: {
+                xAxes: [{
+                    categoryPercentage: 1.0,
+                    barPercentage: 1.0
+                }],
                 yAxes: [{
                     ticks: {
                         beginAtZero: true
@@ -20,63 +36,70 @@ export function createChart() {
                 }]
             }
         }
-    }
+    };
+    console.dir(chartConfig);
 
-    const chart = new Chart(ctx, chartConfig);
+    const getCasesForStatus = (status = 'confirmed', delta = 280) => {
 
-    const colorSet = new Set();
+        let fromDate = moment().subtract(delta, 'days').format().split('T')[0];
+        let toDate = moment().format().split('T')[0];
+        console.log(fromDate, toDate);
 
-    const generateRandomName = () => {
-        const length = Math.floor(Math.random() * (8 - 4)) + 4;
+        axios.get('https://api.covid19api.com/world?from=' + fromDate +
+        'T00:00:00Z&to=' + toDate + 'T00:00:00Z').then( response => {
+            let res = response['data'];
 
-        let name = '';
+        // axios.get('https://api.covid19api.com/total/country/' + /* selectedCountry */"USA" + '/status/' + status
+        //     + '?from=' + fromDate + 'T00:00:00Z&to=' + toDate + 'T00:00:00Z').then( response => {
+        //     let res = response['data'];
+            // setCasesForStatus(res[res.length - 1]['Cases'] - res[0]['Cases'], status);
+            setChartForStatus(res, status);
+        });
+    };
 
-        for (let i = 0; i < length; i += 1) {
-            name +=  String.fromCharCode(Math.floor(Math.random() * (122 - 97)) + 97);
+    let setChartForStatus = (data, status = 'confirmed') => {
+        let months = [ "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December" ];
+        let newConfirmed = 0;
+
+        for (let i = 0; i < data.length; i = i + 1) {
+            let d = new Date(data[i]['Date']);
+            newConfirmed += data[i]['NewConfirmed'];
+            chartConfig.data.labels.push(d.getDate() + " " + months[d.getMonth()]);
+            chartConfig.data.datasets[0].data.push(newConfirmed);
         }
-        
-        return name;
-    }
+        chartConfig.data.labels.push(new Date().getDate() + " " + months[new Date().getMonth()]);
+        chartConfig.data.datasets[0].data.push(data[data.length - 1]['TotalConfirmed']);
+    };
+
+    getCasesForStatus('confirmed', '280');
+    
+    const chart = new Chart(ctx, chartConfig);
 
     const generateRandomTime = () => Math.floor(Math.random() * 200);
 
-    const generateRandomColor = () => {
-        let color = '';
+    const switchLeft = (config, setName) => {
         
-        for (let i = 0; i < 3; i += 1) {
-            const colorComponent = Math.floor(Math.random() * 255);
-            color += colorComponent.toString(16);
-        }
-
-        return color;
-    }
-
-    const addUserToChart = (config, setName) => {
-        const name = setName || generateRandomName();
-        
-        const data = Array(10).fill(0).map(() => generateRandomTime());
+        // const data = Array(10).fill(0).map(() => generateRandomTime());
     
-        let randomColor;
-        do {
-            randomColor = generateRandomColor();
-        } while (colorSet.has(randomColor));
-        colorSet.add(randomColor);
+        // const color = "#ffff00";
+        // const newUser = {
+        //     // label: name,
+        //     data: data,
+        //     backgroundColor: color,
+        //     borderColor: color,
+        //     borderWidth: 1,
+        //     fill: false,
+        // }
 
-        const color = `#${randomColor}`;
-        const newUser = {
-            label: name,
-            data: data,
-            backgroundColor: color,
-            borderColor: color,
-            borderWidth: 2,
-            fill: false,
-        }
+        getCasesForStatus('confirmed', '360');
+        // config.data.datasets.push(newUser);
+        console.dir(chartConfig);
 
-        config.data.datasets.push(newUser);
         chart.update();
     }
 
-    const removeUserFromChart = ({ data: { datasets } }, name) => {
+    const switchRigth = ({ data: { datasets } }, name) => {
         if (name) {
             const names = datasets.map(user => user.label);
             const index = names.indexOf(name);
@@ -93,17 +116,19 @@ export function createChart() {
         chart.update();
     }
 
-    addUserToChart(chartConfig, 'new');
+    // addUserToChart(chartConfig, 'new');
 
     document.querySelector('#add').addEventListener('click', () => {
         const name = document.querySelector('#name').value || null;
 
-        addUserToChart(chartConfig, name);
+        switchLeft(chartConfig, name);
     });
 
     document.querySelector('#remove').addEventListener('click', () => {
         const name = document.querySelector('#name').value || null;
         
-        removeUserFromChart(chartConfig, name);
+        switchRigth(chartConfig, name);
     });
+
+    setTimeout(() => chart.update(), 1000);
 }
