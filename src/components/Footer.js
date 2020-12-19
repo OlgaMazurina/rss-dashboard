@@ -17,6 +17,10 @@ export default class Footer extends Component  {
         {
           label: 'AksultanAitkozha',
           path: 'https://github.com/AksultanAitkozha'
+        },
+        {
+          label: 'OlgaMazurina',
+          path: 'https://github.com/OlgaMazurina'
         }
       ]
     };

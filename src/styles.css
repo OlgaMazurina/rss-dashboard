@@ -556,7 +556,7 @@ body {
 }
 
 .footer_list {
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 0;
 }
 
@@ -643,4 +643,8 @@ body {
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
   background: #000000;
   color: #ffffff;
+}
+
+.titleGB {
+  text-align: center;
 }
