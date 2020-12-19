@@ -599,3 +599,8 @@ body {
   width: 100% !important;
   height: 80% !important;
 }
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #000000;
+  color: #ffffff;
+}
