@@ -6,7 +6,7 @@ export default class Table extends Component {
     this.component = create('div', { classes: ['table'], attributes: [['data-table', true]] }, '', [
       create('div', { classes: ['btn'], attributes: [['data-btn-table', true]] }, '', [
         create('i', { classes: ['fas', 'fa-expand-arrows-alt'] })
-      ])
+      ]), create('div', { classes: ['globalDeaths'] }), create('div', { classes: ['stateLevel'] })
     ]);
   }
 }

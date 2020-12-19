@@ -425,11 +425,31 @@ body {
 
 /**left-side bar*/
 .country {
+  display: flex;
+    -ms-flex-direction: column;
+  flex-direction: column;
   position: relative;
   margin-right: 10px;
   height: 100%;
   -webkit-box-flex: 1;
           flex: 1 1 calc(17% - 10px);
+  /* background-color: #222222; */
+}
+
+.totalCases {
+  position: relative;
+  margin-bottom: 10px;
+  height: 30%;
+  -webkit-box-flex: 0;
+          flex: 0 0 calc(30% - 5px);
+  background-color: #222222;
+}
+
+.totalCountry {
+  position: relative;
+  height: 70%;
+  -webkit-box-flex: 0;
+          flex: 0 0 calc(70% - 5px);
   background-color: #222222;
 }
 
@@ -448,20 +468,40 @@ body {
   -webkit-box-flex: 1;
           flex: 1 1 calc(28% - 10px);
   display: -webkit-box;
-  display: flex;
+  /* display: flex; */
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
-  -webkit-box-align: center;
-          align-items: center;
+  /* -webkit-box-align: center;
+          align-items: center; */
 }
 
 .table {
+  display: flex;
+    -ms-flex-direction: row;
+  flex-direction: row;
   position: relative;
   margin-bottom: 10px;
-  width: 100%;
+  height: 100%;
+  -webkit-box-flex: 1;
+          flex: 1 1 calc(60% - 5px);
+  /* background-color: #222222; */
+}
+
+.globalDeaths {
+  position: relative;
+  margin-right: 10px;
+  width: 50%;
   -webkit-box-flex: 0;
-          flex: 0 0 calc(60% - 5px);
+          flex: 0 0 calc(50% - 5px);
+  background-color: #222222;
+}
+
+.stateLevel {
+  position: relative;
+  width: 50%;
+  -webkit-box-flex: 0;
+          flex: 0 0 calc(50% - 5px);
   background-color: #222222;
 }
 

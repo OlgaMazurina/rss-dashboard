@@ -6,7 +6,7 @@ export default class CountryBlock extends Component {
     this.component = create('div', { classes: ['country'], attributes: [['data-country', true]] }, '', [
       create('div', { classes: ['btn'], attributes: [['data-btn-country', true]] }, '', [
         create('i', { classes: ['fas', 'fa-expand-arrows-alt'] })
-      ])
+      ]), create('div', { classes: ['totalCases'] }), create('div', { classes: ['totalCountry'] })
     ]);
   }
 }
