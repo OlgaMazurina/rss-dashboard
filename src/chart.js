@@ -49,7 +49,6 @@ export function createChart() {
     };
 
     let setChartForStatus = (data, status) => {
-        console.log(data[status]);
         for (let key in data[status]) {
             chartConfig.data.labels.push(key);
             chartConfig.data.datasets[0].data.push(data[status][key]);

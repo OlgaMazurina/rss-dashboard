@@ -653,3 +653,14 @@ body {
   display: flex;
   align-items: center;
 }
+
+.totalCases_title {
+  text-align: center;
+}
+
+.totalCases_score {
+  font-weight: 900;
+  letter-spacing: 0.2rem;
+  text-align: center;
+  color: red;
+}
