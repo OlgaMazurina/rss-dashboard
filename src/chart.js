@@ -1,5 +1,8 @@
 export function createChart() {
     const ctx = document.querySelector('#chart').getContext('2d');
+    const chartTitle = document.querySelector('#chartTitle');
+
+    const statusStat = ['cases', 'deaths', 'recovered'];
 
     const chartConfig = {
         type: 'bar',
@@ -37,19 +40,19 @@ export function createChart() {
             }
         }
     };
-    console.dir(chartConfig);
 
-    const getCasesForStatus = (status = 'confirmed', delta = 280) => {
+    const getCasesForStatus = (status, delta = 280) => {
             axios.get('https://disease.sh/v3/covid-19/historical/all?lastdays=all').then( response => {
                 let res = response['data'];
             setChartForStatus(res, status);
         });
     };
 
-    let setChartForStatus = (data, status = 'confirmed') => {
-        for (let key in data.cases) {
+    let setChartForStatus = (data, status) => {
+        console.log(data[status]);
+        for (let key in data[status]) {
             chartConfig.data.labels.push(key);
-            chartConfig.data.datasets[0].data.push(data.cases[key]);
+            chartConfig.data.datasets[0].data.push(data[status][key]);
         }
 
         // for (let i = 0; i < data.length; i = i + 1) {
@@ -62,47 +65,48 @@ export function createChart() {
         // chartConfig.data.datasets[0].data.push(data[data.length - 1]['cases']);
     };
 
-    getCasesForStatus('confirmed', '280');
+    getCasesForStatus(statusStat[0], '280');
     
     const chart = new Chart(ctx, chartConfig);
 
-    const generateRandomTime = () => Math.floor(Math.random() * 200);
+    const switchStatus = (status) => {
+        chartConfig.data.labels.length = 0;
+        chartConfig.data.datasets[0].data.length = 0;
 
-    const switchLeft = (config, setName) => {
-        
-        getCasesForStatus('confirmed', '360');
-        // config.data.datasets.push(newUser);
-        chart.update();
-    }
+        chartTitle.innerHTML = `Daily ${status}`;
 
-    const switchRigth = ({ data: { datasets } }, name) => {
-        if (name) {
-            const names = datasets.map(user => user.label);
-            const index = names.indexOf(name);
+        getCasesForStatus(status);
+        setTimeout(() => chart.update(), 500);
+    };
+
+    // const switchRigth = ({ data: { datasets } }, name) => {
+    //     if (name) {
+    //         const names = datasets.map(user => user.label);
+    //         const index = names.indexOf(name);
             
-            if (index === -1) {
-                return;
-            }
+    //         if (index === -1) {
+    //             return;
+    //         }
 
-            datasets.splice(index, 1);
-        } else {
-            datasets.pop();
-        }
+    //         datasets.splice(index, 1);
+    //     } else {
+    //         datasets.pop();
+    //     }
 
-        chart.update();
-    }
+    //     chart.update();
+    // }
 
-    document.querySelector('#switchLeft').addEventListener('click', () => {
-        const name = document.querySelector('#name').value || null;
-
-        switchLeft(chartConfig, name);
+    document.querySelector('#cases').addEventListener('click', () => {
+        switchStatus(statusStat[0]);
     });
 
-    document.querySelector('#switchRigth').addEventListener('click', () => {
-        const name = document.querySelector('#name').value || null;
-        
-        switchRigth(chartConfig, name);
+    document.querySelector('#deaths').addEventListener('click', () => {
+        switchStatus(statusStat[1]);
     });
 
-    setTimeout(() => chart.update(), 1000);
+    document.querySelector('#recovered').addEventListener('click', () => {
+        switchStatus(statusStat[2]);
+    });
+
+    setTimeout(() => chart.update(), 500);
 }

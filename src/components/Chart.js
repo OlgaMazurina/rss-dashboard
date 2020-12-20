@@ -8,12 +8,16 @@ export default class Chart extends Component {
     this.state = {
       btns: [
         {
-          id: 'switchLeft',
-          label: 'switchLeft'
+          id: 'cases',
+          label: 'Cases'
         },
         {
-          id: 'switchRigth',
-          label: 'switchRigth'
+          id: 'deaths',
+          label: 'Deaths'
+        },
+        {
+          id: 'recovered',
+          label: 'Recovered'
         }
       ]
     }
