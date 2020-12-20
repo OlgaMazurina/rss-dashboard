@@ -8,12 +8,12 @@ export default class Chart extends Component {
     this.state = {
       btns: [
         {
-          id: 'add',
-          label: 'Add'
+          id: 'switchLeft',
+          label: 'switchLeft'
         },
         {
-          id: 'remove',
-          label: 'Remove'
+          id: 'switchRigth',
+          label: 'switchRigth'
         }
       ]
     }
@@ -21,9 +21,9 @@ export default class Chart extends Component {
   render() {
     this.component = create('div', { classes: ['chart'], attributes: [['data-chart', true]] }, '', [
       create('canvas', { attributes: [['id', 'chart']] }),
-      create('div', null, '', [
+      create('div', { classes: ['chartPagination'] }, '', [
         ...this.state.btns.map(({ id, label }) => create('button', { attributes: [['id', id]] }, label)),
-        create('input', { attributes: [['type', 'text'], ['placeholder', 'name'], ['id', 'name']] })
+        create('h2', { attributes: [['id', 'chartTitle']] }, 'Daily Cases')
       ]),
       create('div', { classes: ['btn'], attributes: [['data-btn-chart', true]] }, '', [
         create('i', { classes: ['fas', 'fa-expand-arrows-alt'] })

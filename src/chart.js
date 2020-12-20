@@ -10,9 +10,9 @@ export function createChart() {
                     data: [],
                     backgroundColor: "#ffff00",
                     borderColor: "#ffff00",
-                    // borderWidth: 0.1,
                     barDatasetSpacing: 0,
                     barValueSpacing: 0,
+                    // borderWidth: 0.1,
                     // categoryPercentage: 0,
                     // barPercentage: 0,
                     // barThickness: 'flex',
@@ -40,36 +40,26 @@ export function createChart() {
     console.dir(chartConfig);
 
     const getCasesForStatus = (status = 'confirmed', delta = 280) => {
-
-        let fromDate = moment().subtract(delta, 'days').format().split('T')[0];
-        let toDate = moment().format().split('T')[0];
-        console.log(fromDate, toDate);
-
-        axios.get('https://api.covid19api.com/world?from=' + fromDate +
-        'T00:00:00Z&to=' + toDate + 'T00:00:00Z').then( response => {
-            let res = response['data'];
-
-        // axios.get('https://api.covid19api.com/total/country/' + /* selectedCountry */"USA" + '/status/' + status
-        //     + '?from=' + fromDate + 'T00:00:00Z&to=' + toDate + 'T00:00:00Z').then( response => {
-        //     let res = response['data'];
-            // setCasesForStatus(res[res.length - 1]['Cases'] - res[0]['Cases'], status);
+            axios.get('https://disease.sh/v3/covid-19/historical/all?lastdays=all').then( response => {
+                let res = response['data'];
             setChartForStatus(res, status);
         });
     };
 
     let setChartForStatus = (data, status = 'confirmed') => {
-        let months = [ "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December" ];
-        let newConfirmed = 0;
-
-        for (let i = 0; i < data.length; i = i + 1) {
-            let d = new Date(data[i]['Date']);
-            newConfirmed += data[i]['NewConfirmed'];
-            chartConfig.data.labels.push(d.getDate() + " " + months[d.getMonth()]);
-            chartConfig.data.datasets[0].data.push(newConfirmed);
+        for (let key in data.cases) {
+            chartConfig.data.labels.push(key);
+            chartConfig.data.datasets[0].data.push(data.cases[key]);
         }
-        chartConfig.data.labels.push(new Date().getDate() + " " + months[new Date().getMonth()]);
-        chartConfig.data.datasets[0].data.push(data[data.length - 1]['TotalConfirmed']);
+
+        // for (let i = 0; i < data.length; i = i + 1) {
+        //     let d = new Date(data[i]['Date']);
+        //     newConfirmed += data[i]['cases'];
+        //     chartConfig.data.labels.push(d.getDate() + " " + months[d.getMonth()]);
+        //     chartConfig.data.datasets[0].data.push(newConfirmed);
+        // }
+        // chartConfig.data.labels.push(new Date().getDate() + " " + months[new Date().getMonth()]);
+        // chartConfig.data.datasets[0].data.push(data[data.length - 1]['cases']);
     };
 
     getCasesForStatus('confirmed', '280');
@@ -80,22 +70,8 @@ export function createChart() {
 
     const switchLeft = (config, setName) => {
         
-        // const data = Array(10).fill(0).map(() => generateRandomTime());
-    
-        // const color = "#ffff00";
-        // const newUser = {
-        //     // label: name,
-        //     data: data,
-        //     backgroundColor: color,
-        //     borderColor: color,
-        //     borderWidth: 1,
-        //     fill: false,
-        // }
-
         getCasesForStatus('confirmed', '360');
         // config.data.datasets.push(newUser);
-        console.dir(chartConfig);
-
         chart.update();
     }
 
@@ -116,15 +92,13 @@ export function createChart() {
         chart.update();
     }
 
-    // addUserToChart(chartConfig, 'new');
-
-    document.querySelector('#add').addEventListener('click', () => {
+    document.querySelector('#switchLeft').addEventListener('click', () => {
         const name = document.querySelector('#name').value || null;
 
         switchLeft(chartConfig, name);
     });
 
-    document.querySelector('#remove').addEventListener('click', () => {
+    document.querySelector('#switchRigth').addEventListener('click', () => {
         const name = document.querySelector('#name').value || null;
         
         switchRigth(chartConfig, name);

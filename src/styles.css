@@ -29,9 +29,9 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
-input ::-ms-clear {
+/* input ::-ms-clear {
   display: none;
-}
+} */
 
 button {
   cursor: pointer;
@@ -647,4 +647,9 @@ body {
 
 .titleGB {
   text-align: center;
+}
+
+.chartPagination {
+  display: flex;
+  align-items: center;
 }
