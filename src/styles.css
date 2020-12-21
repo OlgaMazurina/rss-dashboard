@@ -655,6 +655,7 @@ body {
 }
 
 .totalCases_title {
+  height: 50%;
   text-align: center;
 }
 
@@ -663,4 +664,13 @@ body {
   letter-spacing: 0.2rem;
   text-align: center;
   color: red;
+  height: 50%;
+}
+
+.totalCases_wrapp {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
 }
