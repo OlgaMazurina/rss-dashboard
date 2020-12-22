@@ -446,6 +446,7 @@ body {
 }
 
 .totalCountry {
+  overflow: auto;
   position: relative;
   height: 70%;
   -webkit-box-flex: 0;
@@ -673,4 +674,8 @@ body {
   height: 100%;
   justify-content: center;
   flex-direction: column;
+}
+
+.totalCountry_title {
+  text-align: center;
 }

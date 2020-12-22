@@ -6,10 +6,10 @@
 
 
 // Получение массива с данными по каждой стране
-async function getAllCountries() {
-    const response = await fetch('https://api.covid19api.com/summary')
-    obj = await response.json();
-    return obj['Countries'];
+export async function getAllCountries() {
+    const response = await fetch('https://corona.lmao.ninja/v2/countries')
+    const obj = await response.json();
+    return obj;
 }
 
 // Данные по По каждой стране за все время
@@ -24,7 +24,7 @@ async function getData() {
 
 //Получение всей информации по странам(координаты, флаг, название, население, случаи...)
 export async function getCountriesCoordinates() {
-    const response = await fetch('https://corona.lmao.ninja/v2/countries')
+    const response = await fetch('https://corona.lmao.ninja/v2/countries');
     return await response.json();
 }
 
