@@ -1,4 +1,5 @@
 import { getCountriesCoordinates } from './APIdata.js';
+import create from './services/create.js';
 
 export async function createMap() {
     const mymap = L.map('mapid').setView([35, 0], 2);
@@ -27,4 +28,25 @@ export async function createMap() {
         circle.bindPopup(`<b>${country['country']}</b><br>Cases: ${country['cases']}<br>Deaths: ${country['deaths']}`);
     }
 
+    const legend = createLegend();
+    document.querySelector(".leaflet-right.leaflet-top").appendChild(legend);
+}
+
+let createLegend = function () {
+    return create('select', { classes: ['drop', 'leaflet-control'], attributes: [] }, '', [
+        create('option', { classes: ['drop-opt'], attributes: [['selected', 'selected']]}, 'number of cases total (abs)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of cases total (per 100k)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of cases last day (abs)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of cases last day (per 100k)'),
+
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of deaths total (abs)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of deaths total (per 100k)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of deaths last day (abs)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of deaths last day (per 100k)'),
+
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of recovered total (abs)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of recovered total (per 100k)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of recovered last day (abs)'),
+        create('option', { classes: ['drop-opt'], attributes: []}, 'number of recovered last day (per 100k)')
+    ])
 }
