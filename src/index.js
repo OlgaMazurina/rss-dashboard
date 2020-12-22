@@ -16,32 +16,55 @@ const getTodayDate = () => {
 
 export const countriesInfo = {
 
-    getCountriesInfo(status) {
+    getCountriesInfo() {
         let obj = getAllCountries();
         
         obj.then( result => {
-            result.sort((a, b) => b[status] > a[status] ? 1 : -1);
+            result.sort((a, b) => b['cases'] > a['cases'] ? 1 : -1);
                 result.map(el => {
-                    const countryBlock = document.querySelector('.totalCountry_block');
-                    const block = document.createElement('div');
+                    const casesBlock = document.querySelector('.totalCountry_block');
+                    const newBlock = document.createElement('div');
                     const h3 = document.createElement('h3');
-                    block.innerHTML = el.country;
+                    newBlock.innerHTML = el.country;
                     h3.innerHTML = el.cases;
-                    countryBlock.appendChild(block);
-                    block.appendChild(h3);
+                    casesBlock.appendChild(newBlock);
+                    newBlock.appendChild(h3);
                     // console.log(el.country);
                     // console.log(el.countryInfo.flag);
-                    // console.log(el.cases);
             });
-            // return console.log(result);
-            console.log(result);
         });
+
+        obj.then( result => {
+            result.sort((a, b) => b['deaths'] > a['deaths'] ? 1 : -1);
+                result.map(el => {
+                    const deathsBlock = document.querySelector('.globalDeathsWrapp');
+                    const newBlock = document.createElement('div');
+                    const h3 = document.createElement('h3');
+                    newBlock.innerHTML = el.country;
+                    h3.innerHTML = el.deaths;
+                    deathsBlock.appendChild(newBlock);
+                    newBlock.appendChild(h3);
+            });
+        });
+
+        obj.then( result => {
+            result.sort((a, b) => b['recovered'] > a['recovered'] ? 1 : -1);
+                result.map(el => {
+                    const recoveredBlock = document.querySelector('.globalRecoveredWrapp');
+                    const newBlock = document.createElement('div');
+                    const h3 = document.createElement('h3');
+                    newBlock.innerHTML = el.country;
+                    h3.innerHTML = el.recovered;
+                    recoveredBlock.appendChild(newBlock);
+                    newBlock.appendChild(h3);
+            });
+        })
     }
 }
 
 
 window.onload = () => {
-    countriesInfo.getCountriesInfo('cases');
+    countriesInfo.getCountriesInfo();
     document.body.append(new App().init());
     createChart();
     createMap();

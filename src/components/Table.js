@@ -12,7 +12,13 @@ export default class Table extends Component {
             create('h2', { classes: ['titleGB'] }, 'Global Deaths')
           ])
         ])
-      ]), create('div', { classes: ['stateLevel'] })
+      ]), create('div', { classes: ['stateLevel'] }, '', [
+        create('div', { classes: ['globalRecoveredWrapp'] }, '', [
+          create('div', { classes: ['globalRecoveredTitle'] }, '', [
+            create('h2', { classes: ['titleGB'] }, 'Global Recovered')
+          ])
+        ])
+      ])
     ]);
   }
 }

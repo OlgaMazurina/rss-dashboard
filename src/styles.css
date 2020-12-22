@@ -491,6 +491,7 @@ body {
 
 .globalDeaths {
   position: relative;
+  overflow: auto;
   margin-right: 10px;
   width: 50%;
   -webkit-box-flex: 0;
@@ -500,6 +501,7 @@ body {
 
 .stateLevel {
   position: relative;
+  overflow: auto;
   width: 50%;
   -webkit-box-flex: 0;
           flex: 0 0 calc(50% - 5px);
