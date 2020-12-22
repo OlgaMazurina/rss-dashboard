@@ -26,12 +26,14 @@ export const countriesInfo = {
                     const newBlock = document.createElement('div');
                     const h3 = document.createElement('h3');
                     newBlock.innerHTML = el.country;
+                    newBlock.insertAdjacentHTML('beforeend', '<img src="'+ el.countryInfo.flag +'">');
                     h3.innerHTML = el.cases;
                     casesBlock.appendChild(newBlock);
                     newBlock.appendChild(h3);
                     // console.log(el.country);
                     // console.log(el.countryInfo.flag);
             });
+            console.log(result)
         });
 
         obj.then( result => {
@@ -41,6 +43,7 @@ export const countriesInfo = {
                     const newBlock = document.createElement('div');
                     const h3 = document.createElement('h3');
                     newBlock.innerHTML = el.country;
+                    newBlock.insertAdjacentHTML('beforeend', '<img src="'+ el.countryInfo.flag +'">');
                     h3.innerHTML = el.deaths;
                     deathsBlock.appendChild(newBlock);
                     newBlock.appendChild(h3);
@@ -54,13 +57,14 @@ export const countriesInfo = {
                     const newBlock = document.createElement('div');
                     const h3 = document.createElement('h3');
                     newBlock.innerHTML = el.country;
+                    newBlock.insertAdjacentHTML('beforeend', '<img src="'+ el.countryInfo.flag +'">');
                     h3.innerHTML = el.recovered;
                     recoveredBlock.appendChild(newBlock);
                     newBlock.appendChild(h3);
             });
-        })
+        });
     }
-}
+};
 
 
 window.onload = () => {

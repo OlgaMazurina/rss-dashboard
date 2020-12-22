@@ -681,3 +681,21 @@ body {
 .totalCountry_title {
   text-align: center;
 }
+
+img {
+  width: 20px;
+  height: 16px;
+  margin-left: 10px;
+}
+
+h3 {
+  color: red;
+}
+
+.globalDeathsWrapp h3 {
+  color: grey;
+}
+
+.globalRecoveredWrapp h3 {
+  color: green;
+}
