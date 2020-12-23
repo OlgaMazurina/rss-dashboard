@@ -1,8 +1,10 @@
 import { getCountriesCoordinates } from './APIdata.js';
 import create from './services/create.js';
+let mymap;
+let circles;
 
 export async function createMap() {
-    const mymap = L.map('mapid').setView([35, 0], 2);
+    mymap = L.map('mapid').setView([35, 0], 2);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -13,13 +15,31 @@ export async function createMap() {
         accessToken: 'pk.eyJ1IjoiMGxnYSIsImEiOiJja2l1OW16dTEydnNxMnJsYmxmN29kZHQ0In0.8aKToKJUpLWf0fzGd3NAIg'
     }).addTo(mymap);
 
+    drawCircles();
+
+    const legend = createLegend();
+    document.querySelector(".leaflet-right.leaflet-top").appendChild(legend);
+
+    document.querySelector('.drop').onchange = function() {
+        drawCircles();
+        console.log('drawCircles');
+    }
+}
+
+let drawCircles = async function() {
+    if (circles) {
+        circles.clearLayers();
+    }
+
+    let circlesArr = [];
     for (let country of await getCountriesCoordinates()) {
         let circle = L.circle([country['countryInfo']['lat'], country['countryInfo']['long']], {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.5,
             radius: country['cases'] / 25
-        }).addTo(mymap);
+        })
+        circlesArr.push(circle);
         // let popup = L.popup({className: 'popup'})
         //     .setLatLng(circle.getLatLng())
         //     .setContent(`<b>${country['country']}</b><br>Cases: ${country['cases']}<br>Deaths: ${country['deaths']}`)
@@ -27,9 +47,7 @@ export async function createMap() {
         // circle.bindPopup(popup);
         circle.bindPopup(`<b>${country['country']}</b><br>Cases: ${country['cases']}<br>Deaths: ${country['deaths']}`);
     }
-
-    const legend = createLegend();
-    document.querySelector(".leaflet-right.leaflet-top").appendChild(legend);
+    circles = L.layerGroup(circlesArr).addTo(mymap);
 }
 
 let createLegend = function () {
