@@ -23,7 +23,7 @@ async function getData() {
 }
 
 //Получение всей информации по странам(координаты, флаг, название, население, случаи...)
-export async function getCountriesCoordinates() {
+export async function getCountriesInformation() {
     const response = await fetch('https://corona.lmao.ninja/v2/countries');
     return await response.json();
 }
