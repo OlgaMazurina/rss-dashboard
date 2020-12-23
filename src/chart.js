@@ -53,6 +53,9 @@ export function createChart() {
             chartConfig.data.labels.push(key);
             chartConfig.data.datasets[0].data.push(data[status][key]);
         }
+        chartConfig.data.labels = chartConfig.data.labels.slice(-140);
+        chartConfig.data.datasets[0].data = chartConfig.data.datasets[0].data.slice(-140);
+
 
         // for (let i = 0; i < data.length; i = i + 1) {
         //     let d = new Date(data[i]['Date']);
@@ -65,7 +68,7 @@ export function createChart() {
     };
 
     getCasesForStatus(statusStat[0], '280');
-    
+
     const chart = new Chart(ctx, chartConfig);
 
     const switchStatus = (status) => {
@@ -82,7 +85,7 @@ export function createChart() {
     //     if (name) {
     //         const names = datasets.map(user => user.label);
     //         const index = names.indexOf(name);
-            
+
     //         if (index === -1) {
     //             return;
     //         }
