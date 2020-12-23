@@ -63,7 +63,7 @@ let drawCircles = async function(numOfList) {
             popupText = `Last day deaths (abs): ${country['todayDeaths']}`;
         } else if (numOfList == 8) { //number of deaths last day (per 100k)
             radius = country['todayDeaths'] / country['population'] * 100000 * 100000
-            popupText = `Last day deaths (abs): ${round(country['todayDeaths'] / country['population'] * 100000)}`;
+            popupText = `Last day deaths (per 100k): ${round(country['todayDeaths'] / country['population'] * 100000)}`;
         } else if (numOfList == 9) { //number of recovered total (abs)
             radius = country['recovered'] / 20;
             popupText = `Total recovered (abs): ${country['recovered']}`;
@@ -85,11 +85,6 @@ let drawCircles = async function(numOfList) {
             radius: radius
         })
         circlesArr.push(circle);
-        // let popup = L.popup({className: 'popup'})
-        //     .setLatLng(circle.getLatLng())
-        //     .setContent(`<b>${country['country']}</b><br>Cases: ${country['cases']}<br>Deaths: ${country['deaths']}`)
-        //     .openOn(mymap);
-        // circle.bindPopup(popup);
         circle.bindPopup(`<b>${country['country']}</b><br>${popupText}`);
     }
 
