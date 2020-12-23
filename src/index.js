@@ -5,6 +5,7 @@ import { createChart } from './chart.js';
 import { createMap } from './map.js';
 import { createTotalStat } from './totalCases.js';
 import { getAllCountries } from './APIdata.js';
+import { btnEvent } from './tableBtn.js';
 
 const getTodayDate = () => {
     let months = [ "January", "February", "March", "April", "May", "June",
@@ -17,7 +18,7 @@ const getTodayDate = () => {
 export const countriesInfo = {
 
     getCountriesInfo() {
-        let obj = getAllCountries();
+        const obj = getAllCountries();
         
         obj.then( result => {
             result.sort((a, b) => b['cases'] > a['cases'] ? 1 : -1);
@@ -26,8 +27,10 @@ export const countriesInfo = {
                     const newBlock = document.createElement('div');
                     const h3 = document.createElement('h3');
                     newBlock.innerHTML = el.country;
+                    newBlock.id = 'casesBlockCont';
                     newBlock.insertAdjacentHTML('beforeend', '<img src="'+ el.countryInfo.flag +'">');
                     h3.innerHTML = el.cases;
+                    h3.id = 'casesBlock';
                     casesBlock.appendChild(newBlock);
                     newBlock.appendChild(h3);
                     // console.log(el.country);
@@ -43,8 +46,10 @@ export const countriesInfo = {
                     const newBlock = document.createElement('div');
                     const h3 = document.createElement('h3');
                     newBlock.innerHTML = el.country;
+                    newBlock.id = 'deathsBlockCont';
                     newBlock.insertAdjacentHTML('beforeend', '<img src="'+ el.countryInfo.flag +'">');
                     h3.innerHTML = el.deaths;
+                    h3.id = 'deathsBlock';
                     deathsBlock.appendChild(newBlock);
                     newBlock.appendChild(h3);
             });
@@ -57,8 +62,10 @@ export const countriesInfo = {
                     const newBlock = document.createElement('div');
                     const h3 = document.createElement('h3');
                     newBlock.innerHTML = el.country;
+                    newBlock.id = 'recoveredBlockCont';
                     newBlock.insertAdjacentHTML('beforeend', '<img src="'+ el.countryInfo.flag +'">');
                     h3.innerHTML = el.recovered;
+                    h3.id = 'recoveredBlock';
                     recoveredBlock.appendChild(newBlock);
                     newBlock.appendChild(h3);
             });
@@ -74,4 +81,5 @@ window.onload = () => {
     createMap();
     createTotalStat();
     getTodayDate();
+    btnEvent.addBtnEvent();
 };
