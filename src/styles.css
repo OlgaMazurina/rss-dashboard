@@ -491,7 +491,9 @@ body {
 
 .globalDeaths {
   position: relative;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  /* overflow: auto; */
   margin-right: 10px;
   width: 50%;
   -webkit-box-flex: 0;
@@ -680,6 +682,10 @@ body {
 
 .totalCountry_title {
   text-align: center;
+}
+
+.globalDeathsWrapp {
+  overflow: auto;
 }
 
 img {
