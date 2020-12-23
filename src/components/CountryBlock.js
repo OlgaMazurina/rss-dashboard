@@ -14,7 +14,7 @@ export default class CountryBlock extends Component {
         ])
       ]), create('div', { classes: ['totalCountry'] }, '', [
         create('div', { classes: ['totalCountry_wrapp'] }, '', [
-          create('h3', { classes: ['totalCountry_title'] }, 'Cases by Country/Region/Sovereignty'), '',
+          create('h2', { classes: ['totalCountry_title'] }, 'Cases by Country/Region/Sovereignty'), '',
         create('div', { classes: ['totalCountry_block'] })])
       ])
     ]);
