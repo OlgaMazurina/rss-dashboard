@@ -16,7 +16,11 @@ export default class Table extends Component {
         },
         {
           id: 'absol',
-          label: '%People'
+          label: '%100k All Day'
+        },
+        {
+          id: 'absolDay',
+          label: '%100k Last Day'
         }
       ]
     }
