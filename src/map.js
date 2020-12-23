@@ -85,11 +85,6 @@ let drawCircles = async function(numOfList) {
             radius: radius
         })
         circlesArr.push(circle);
-        // let popup = L.popup({className: 'popup'})
-        //     .setLatLng(circle.getLatLng())
-        //     .setContent(`<b>${country['country']}</b><br>Cases: ${country['cases']}<br>Deaths: ${country['deaths']}`)
-        //     .openOn(mymap);
-        // circle.bindPopup(popup);
         circle.bindPopup(`<b>${country['country']}</b><br>${popupText}`);
     }
 
